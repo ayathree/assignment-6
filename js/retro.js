@@ -99,6 +99,39 @@ const loadLatestPost = async()=>{
     const posts = data; 
     console.log(posts);
 
+    const latestPost = document.getElementById('latest-post');
+    posts.forEach((item) => {
+        console.log(item)
+        const div = document.createElement('div');
+    div.classList= `card  bg-base-100 shadow-xl `;
+    div. innerHTML= `
+    <figure class="px-10 pt-10 mb-3">
+     <img src="${item.cover_image}" alt="" class="rounded-xl" />
+    </figure>
+    <div class="flex flex-row items-center gap-3 px-6">
+    <i class="fa-regular fa-calendar "></i>
+    <p>${item?.author?.posted_date}</p>
+    </div>
+    <div class="p-6">
+    <h2 class="card-title">${item.title}</h2>
+    <p>${item.description}</p>
+    <div class=" flex flex-row items-center gap-5 mt-6">
+    <div class="h-[50px] w-[60px] lg:w-[50px]  ">
+    <img class="rounded-full" src="${item.profile_image}" alt="">
+    </div>
+    <div class="flex flex-col items-center ">
+    <p>${item.author.name}</p>
+    <p>${item?.author?.designation}</p>
+    </div>
+    </div>
+    </div>
+    
+    `;
+    latestPost.appendChild(div);
+        
+    });
+    
+
 
 }
 
