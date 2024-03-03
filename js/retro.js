@@ -1,11 +1,15 @@
-const loadAllPost = async()=>{
-    const res = await fetch(' https://openapi.programming-hero.com/api/retro-forum/posts')
+let category = '';
+
+const loadAllPost = async(cateName)=>{
+    category = cateName;
+    const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${cateName}`)
     const data = await res.json();
     const posts = data.posts
     console.log(posts);
 
 
     const allPostContainer = document.getElementById('all-post-container');
+    allPostContainer.innerHTML ='';
     posts.forEach((post) => {
         let p = '';
         if (post.isActive === false) {
@@ -65,7 +69,7 @@ const loadAllPost = async()=>{
     });
 }
 
-let seatCount = -1;
+let seatCount = 0;
 const addTitle = ()=>{
     
     const marked = document.getElementById('mark-count');
@@ -110,7 +114,7 @@ const loadLatestPost = async()=>{
     </figure>
     <div class="flex flex-row items-center gap-3 px-6">
     <i class="fa-regular fa-calendar "></i>
-    <p>${item?.author?.posted_date}</p>
+    <p>${item?.author?.posted_date || 'No Publish Date'}</p>
     </div>
     <div class="p-6">
     <h2 class="card-title">${item.title}</h2>
@@ -121,7 +125,7 @@ const loadLatestPost = async()=>{
     </div>
     <div class="flex flex-col items-center ">
     <p>${item.author.name}</p>
-    <p>${item?.author?.designation}</p>
+    <p>${item?.author?.designation ||'Unknown'}</p>
     </div>
     </div>
     </div>
@@ -135,7 +139,34 @@ const loadLatestPost = async()=>{
 
 }
 
+const handleSearch=()=>{
+    const inputSearch = document.getElementById('input-box').value;
+    if (inputSearch) {
+        loadAllPost(inputSearch)
+        
+    }
+    else{
+        alert('invalid');
+    }
 
+
+}
+
+// const allPost = async()=>{
+//     const res = await fetch(' https://openapi.programming-hero.com/api/retro-forum/posts?category');
+//     const data = await res.json();
+//     const news = data.posts;
+//     console.log(news)
+//     news.forEach((item) => {
+//         console.log(item)
+//         const cate = item.category;
+//         loadAllPost(cate);
+//     });
+// }
+
+
+
+
+// allPost();
 loadLatestPost();
-addTitle();
-loadAllPost();
+loadAllPost(category);
