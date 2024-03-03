@@ -2,6 +2,8 @@ let category = '';
 
 const loadAllPost = async(cateName)=>{
     category = cateName;
+    const loadSpin =document.getElementById('loading');
+    loadSpin.classList.remove('hidden')
     const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${cateName}`)
     const data = await res.json();
     const posts = data.posts
@@ -10,6 +12,7 @@ const loadAllPost = async(cateName)=>{
 
     const allPostContainer = document.getElementById('all-post-container');
     allPostContainer.innerHTML ='';
+   setTimeout(()=>{
     posts.forEach((post) => {
         let p = '';
         if (post.isActive === false) {
@@ -19,6 +22,10 @@ const loadAllPost = async(cateName)=>{
          else{
             p= `<p  class="rounded-full bg-green-500 h-[12px] w-[12px] absolute -top-1  -right-1"></p>`
          }
+
+         const loadSpin =document.getElementById('loading');
+    loadSpin.classList.add('hidden')
+         
         console.log(post)
         const div = document.createElement('div');
         div.classList = `card  bg-gray-100  m-4  p-4`;
@@ -63,10 +70,13 @@ const loadAllPost = async(cateName)=>{
        </div>
        </div>
        </div>
-    
-        `;
-        allPostContainer.appendChild(div);
+       
+       `;
+       allPostContainer.appendChild(div);
     });
+},2000)
+
+
 }
 
 let seatCount = 0;
@@ -75,7 +85,7 @@ const addTitle = ()=>{
     const marked = document.getElementById('mark-count');
     seatCount = seatCount + 1
     marked.innerHTML = `${seatCount}`;
-
+    
     const selectTitle =document.getElementById('select-title');
     const selectDiv = document.createElement('div');
     selectDiv.classList =`bg-white p-5 mb-5 rounded-lg`
@@ -84,7 +94,7 @@ const addTitle = ()=>{
     <div class="">
     <h1 class="text-xs font-bold">10 Kids Unaware of Their Halloween Costume</h1>
     </div>
-
+    
     <div class="flex flex-row justify-between items-center gap-2">
     <i class="fa-regular fa-eye"></i>
     <p>15580</p>
@@ -93,7 +103,7 @@ const addTitle = ()=>{
     
     `;
     selectTitle.appendChild(selectDiv)
-
+    
     
 }
 
@@ -152,21 +162,6 @@ const handleSearch=()=>{
 
 }
 
-// const allPost = async()=>{
-//     const res = await fetch(' https://openapi.programming-hero.com/api/retro-forum/posts?category');
-//     const data = await res.json();
-//     const news = data.posts;
-//     console.log(news)
-//     news.forEach((item) => {
-//         console.log(item)
-//         const cate = item.category;
-//         loadAllPost(cate);
-//     });
-// }
 
-
-
-
-// allPost();
 loadLatestPost();
 loadAllPost(category);
