@@ -43,7 +43,7 @@ const loadAllPost = async(cateName)=>{
 
        </div>
        <div class="mb-3">
-       <h1 class=" font-bold">${post.title}</h1>
+       <h1 id="new-title"  class=" font-bold">${post.title}</h1>
        </div>
        <div class="mb-3">
        <p>${post.description}</p>
@@ -55,9 +55,9 @@ const loadAllPost = async(cateName)=>{
        <i class="fa-regular fa-message"></i>
        <p>${post.comment_count}</p>
        </div >
-       <div class="flex flex-row justify-between items-center gap-2">
+       <div  class="flex flex-row justify-between items-center gap-2">
        <i class="fa-regular fa-eye"></i>
-       <p>${post.view_count}</p>
+       <p id="new-view">${post.view_count}</p>
        </div>
        <div class="flex flex-row justify-between items-center gap-2">
        <i class="fa-regular fa-clock"></i>
@@ -65,7 +65,7 @@ const loadAllPost = async(cateName)=>{
        </div>
        </div>
        <div>
-       <button onclick="addTitle()" class="btn rounded-full h-[50px] w-[50px] p-2 bg-green-500 text-white"><i class="fa-solid fa-envelope-open"></i></button>
+       <button onclick="addTitle('${post.title.replace(/'/g, "")}', '${post.view_count}')" class="btn rounded-full h-[50px] w-[50px] p-2 bg-green-500 text-white"><i class="fa-solid fa-envelope-open"></i></button>
        </div>
        </div>
        </div>
@@ -80,11 +80,17 @@ const loadAllPost = async(cateName)=>{
 }
 
 let seatCount = 0;
-const addTitle = ()=>{
+const addTitle = (title,view)=>{
     
     const marked = document.getElementById('mark-count');
     seatCount = seatCount + 1
     marked.innerHTML = `${seatCount}`;
+    // const newTitle = document.getElementById('new-title');
+    // const title = newTitle.innerText
+    // console.log(title);
+    // const newView = document.getElementById('new-view');
+    // const view = newView.innerText
+    // console.log(view)
     
     const selectTitle =document.getElementById('select-title');
     const selectDiv = document.createElement('div');
@@ -92,12 +98,12 @@ const addTitle = ()=>{
     selectDiv.innerHTML=`
     <div class="flex flex-row justify-between items-center">
     <div class="">
-    <h1 class="text-xs font-bold">10 Kids Unaware of Their Halloween Costume</h1>
+    <h1  class="text-xs font-bold">${title}</h1>
     </div>
     
     <div class="flex flex-row justify-between items-center gap-2">
     <i class="fa-regular fa-eye"></i>
-    <p>15580</p>
+    <p >${view}</p>
     </div>
     </div>
     
