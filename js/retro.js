@@ -85,12 +85,7 @@ const addTitle = (title,view)=>{
     const marked = document.getElementById('mark-count');
     seatCount = seatCount + 1
     marked.innerHTML = `${seatCount}`;
-    // const newTitle = document.getElementById('new-title');
-    // const title = newTitle.innerText
-    // console.log(title);
-    // const newView = document.getElementById('new-view');
-    // const view = newView.innerText
-    // console.log(view)
+   
     
     const selectTitle =document.getElementById('select-title');
     const selectDiv = document.createElement('div');
